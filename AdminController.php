@@ -6,74 +6,69 @@
  * Time: 11:22 AM
  */
 
-namespace Plugin\GridExample;
+namespace Plugin\FormExample;
 
 
 class AdminController extends \Ip\GridController
 {
+
     protected  function config(){
         return array(
             'title' => 'Person list',
-            'table' => 'gridExample',
-            'deleteWarning' => 'Are you sure?',
-            'sortField' => 'personOrder',
+            'table' => 'formExample',
+            'deleteWarning' => 'Do you really want to delete this ad?',
+            'sortField' => 'productOrder',
             'createPosition' => 'top',
-            'pageSize' => 5,
+            'pageSize' => 25,
             'fields' => array(
                 array(
-                    'label' => 'First name',
-                    'field' => 'FirstName',
+                    'label' => 'productName',
+                    'field' => 'productName',
                     'validators' => array('Required')
                 ),
                 array(
-                    'label' => 'Last name',
-                    'field' => 'LastName'
-                ),
-               array(
-                   'type' => 'Select',
-                   'label' => 'Sex',
-                   'field' => 'Sex',
-                   'values' => array(
-                       array('female', 'Female'),
-                       array('male', 'Male')
-                   )
-                ),
-//                array(
-//                    'label' => 'Date Modified',
-//                    'field' => 'DateModified',
-//                ),
-                array(
-                    'label' => 'Phone',
-                    'field' => 'Phone',
-                ),
-                array(
-                    'label' => 'E-mail',
-                    'field' => 'Email',
-                    'validators' => array('Email')
-                ),
-                array(
-                    'label' => 'Url',
-                    'field' => 'Url',
-                ),
-                array(
-                    'label' => 'Comment',
-                    'field' => 'Comment',
-                ),
-                array(
-                    'type' => 'Checkbox',
-                    'label' => 'Enabled',
-                    'showInList' => true,
-                    'field' => 'Enabled'
+                    'label' => 'productDescription',
+                    'field' => 'productDescription'
                 ),
                 array(
                     'type' => 'RepositoryFile',
-                    'label' => 'CV',
+                    'label' => 'imageFile',
+                    'field' => 'imageFile',
+                    'preview' => __CLASS__ . '::showImage'
+                ),
+                array(
+                    'label' => 'personName',
+                    'field' => 'personName',
+                    'validators' => array('Required')
+                ),
+                array(
+                    'label' => 'phone',
+                    'field' => 'phone',
+                    'validators' => array('Required')
+                ),
+                array(
+                    'type' => 'Checkbox',
+                    'label' => 'hidePhone',
                     'showInList' => true,
-                    'field' => 'cv'
+                    'field' => 'hidePhone'
+                ),
+                array(
+                    'label' => 'email',
+                    'field' => 'email',
+                    'validators' => array('Email')
+                ),
+                array(
+                    'label' => 'dateSubmitted',
+                    'field' => 'dateSubmitted',
+                    'preview' => true
                 )
 
             )
         );
     }
 
+    public static function showImage($value, $recordData){
+        $transform = new \Ip\Transform\ImageCropCenter(100, 50, 100);
+        return '<img src="'.ipReflection($value, 'preview.jpg', $transform).'" alt="'.esc($value).'">';
+    }
 }

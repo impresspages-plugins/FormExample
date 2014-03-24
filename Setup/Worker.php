@@ -1,7 +1,41 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marijus
- * Date: 3/24/14
- * Time: 3:41 PM
- */ 
+
+namespace Plugin\FormExample\Setup;
+
+class Worker extends \Ip\SetupWorker
+{
+
+    public function activate()
+    {
+        $sql = '
+        CREATE TABLE IF NOT EXISTS
+           ' . ipTable('formExample') . '
+        (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `enabled` boolean,
+        `productOrder` double,
+        `productName` varchar(255),
+        `productDescription` text,
+        `imageFile` varchar(255),
+        `personName` varchar(255),
+        `phone` varchar(255) ,
+        `hidePhone` boolean,
+        `email` varchar(255),
+        `dateSubmitted` date,
+        PRIMARY KEY (`id`)
+        )';
+
+        ipDb()->execute($sql);
+    }
+
+    public function deactivate()
+    {
+
+    }
+
+    public function remove()
+    {
+
+    }
+
+}

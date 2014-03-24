@@ -1,7 +1,7 @@
 {
-"title": "Grid example",
+"title": "Form example",
 "version": "1.00",
-"name": "GridExample",
-"description": "Grid example plugin for ImpressPages.",
+"name": "FormExample",
+"description": "Form example plugin for ImpressPages.",
 "author": "ImpressPages"
 }
