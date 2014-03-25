@@ -21,7 +21,7 @@ class Worker extends \Ip\SetupWorker
         `phone` varchar(255) ,
         `hidePhone` boolean,
         `email` varchar(255),
-        `dateSubmitted` date,
+        `dateSubmitted` datetime,
         PRIMARY KEY (`id`)
         )';
 

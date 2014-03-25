@@ -34,7 +34,7 @@ class AdminController extends \Ip\GridController
                     'type' => 'RepositoryFile',
                     'label' => 'imageFile',
                     'field' => 'imageFile',
-                    'preview' => __CLASS__ . '::showImage'
+                    'preview' => 'Plugin\FormExample\Model::showImage'
                 ),
                 array(
                     'label' => 'personName',
@@ -67,8 +67,4 @@ class AdminController extends \Ip\GridController
         );
     }
 
-    public static function showImage($value, $recordData){
-        $transform = new \Ip\Transform\ImageCropCenter(100, 50, 100);
-        return '<img src="'.ipReflection($value, 'preview.jpg', $transform).'" alt="'.esc($value).'">';
-    }
 }
