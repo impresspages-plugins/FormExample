@@ -34,7 +34,9 @@ class SiteController extends \Ip\Controller
     }
 
     public function showSuccessMessage(){
-        return "Form submitted successfully"; // TODO
+        $renderedHtml = ipView('view/success.php')->render();
+
+        return $renderedHtml;
     }
 
 

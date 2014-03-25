@@ -7,7 +7,7 @@ foreach ($products as $product){
             echo Plugin\FormExample\Model::showImage($product['imageFile']);
             ?></td>
         <td><?php echo $product['productName']; ?></td>
-        <td><?php echo $product['dateSubmitted']; ?></td>
+        <td><?php echo ipFormatDateTime(strtotime($product['dateSubmitted']), 'Ip'); ?></td>
     </tr>
 <?php
 }

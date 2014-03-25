@@ -37,7 +37,7 @@ class Model {
             'phone' => ipRequest()->getPost('phone'),
             'email' => ipRequest()->getPost('email'),
             // s'imageFile' => ipRequest()->getPost('imageFile'),
-            'dateSubmitted' => time() //date('Y-m-d h:i')
+            'dateSubmitted' => date('Y-m-d h:i')
         );
 
         ipDb()->insert('formExample', $product);
