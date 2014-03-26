@@ -22,7 +22,7 @@ class AdminController extends \Ip\GridController
                     'type' => 'RepositoryFile',
                     'label' => __('Image file', 'FormExample'),
                     'field' => 'imageFile',
-                    'preview' => 'Plugin\FormExample\Model::showImage'
+                    'preview' => 'Plugin\FormExample\Model::showImage' // Use showImage method from plugin's Model class.
                 ),
                 array(
                     'label' => __('Submitted by', 'FormExample'),

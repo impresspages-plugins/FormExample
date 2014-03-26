@@ -17,7 +17,8 @@ class Model {
         if ($value){
             $transform = new \Ip\Transform\ImageFit(100, 50);
             $thumbnailUrl = ipReflection($value, $transform, 'preview.jpg');
-            $imageHtml = '<img src="'.$thumbnailUrl.'" alt="'.esc($value).'">';
+
+            $imageHtml = '<a href="'.ipFileUrl('file/repository/' . $value).'" target="blank"><img src="'.$thumbnailUrl.'" alt="'.esc($value).'"></a>';
 
             return $imageHtml;
         }else{
