@@ -14,7 +14,6 @@ class Worker extends \Ip\SetupWorker
         `enabled` boolean,
         `imageOrder` double,
         `imageName` varchar(255),
-        `imageDescription` text,
         `imageFile` varchar(255),
         `personName` varchar(255),
         `email` varchar(255),

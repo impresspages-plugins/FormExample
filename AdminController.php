@@ -19,10 +19,6 @@ class AdminController extends \Ip\GridController
                     'validators' => array('Required')
                 ),
                 array(
-                    'label' => __('Image description', 'FormExample'),
-                    'field' => 'imageDescription'
-                ),
-                array(
                     'type' => 'RepositoryFile',
                     'label' => __('Image file', 'FormExample'),
                     'field' => 'imageFile',
