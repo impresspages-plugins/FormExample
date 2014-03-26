@@ -4,7 +4,8 @@ namespace Plugin\FormExample;
 class AdminController extends \Ip\GridController
 {
 
-    protected  function config(){
+    protected function config()
+    {
         return array(
             'title' => 'Person list',
             'table' => 'formExample',
@@ -14,8 +15,8 @@ class AdminController extends \Ip\GridController
             'pageSize' => 25,
             'fields' => array(
                 array(
-                    'label' => __('Image name', 'FormExample'),
-                    'field' => 'imageName',
+                    'label' => __('Image title', 'FormExample'),
+                    'field' => 'imageTitle',
                     'validators' => array('Required')
                 ),
                 array(

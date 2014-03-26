@@ -13,7 +13,7 @@ class Worker extends \Ip\SetupWorker
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `enabled` boolean,
         `imageOrder` double,
-        `imageName` varchar(255),
+        `imageTitle` varchar(255),
         `imageFile` varchar(255),
         `personName` varchar(255),
         `email` varchar(255),

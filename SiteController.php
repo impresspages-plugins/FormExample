@@ -15,7 +15,7 @@ class SiteController extends \Ip\Controller
     public function showForm()
     {
 
-        $form = self::getForm();
+        $form = Helper::createForm();
         $data['form'] = $form;
         $renderedHtml = ipView('view/form.php', $data)->render();
 
@@ -25,7 +25,7 @@ class SiteController extends \Ip\Controller
     public function save()
     {
 
-        $form = self::getForm();
+        $form = Helper::createForm();
 
         $postData = ipRequest()->getPost();
         $errors = $form->validate($postData);
@@ -43,7 +43,7 @@ class SiteController extends \Ip\Controller
             $filenameInRepository = ipRepositoryAddFile($images[0]);
 
             $image = array(
-                'imageName' => ipRequest()->getPost('imageName'),
+                'imageTitle' => ipRequest()->getPost('imageTitle'),
                 'personName' => ipRequest()->getPost('personName'),
                 'email' => ipRequest()->getPost('email'),
                 'imageFile' => $filenameInRepository,
@@ -66,51 +66,5 @@ class SiteController extends \Ip\Controller
         return $renderedHtml;
     }
 
-    public static function getForm() {
-
-        $form = new \Ip\Form();
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'imageName', 'label' => __('Image name', 'FormExample'), 'validators' => array('Required'),
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'personName', 'label' => __('Your name', 'FormExample'), 'validators' => array('Required'),
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Email(
-            array(
-                'name' => 'email', 'label' => __('E-mail', 'FormExample'),
-            ));
-        $form->addField($field);
-
-        // Upload product images
-        $field = new \Ip\Form\Field\File(
-            array(
-                'name' => 'imageFile', 'label' => __('Your image file:', 'FormExample'), 'validators' => array('Required'),
-            ));
-
-        $customValidator = new ValidateUpload(); // Validate uploaded file
-        $field->addValidator($customValidator); //$customValidator should extend \Ip\Form\Validator  class
-
-        $form->addField($field);
-
-        // 'sa' means Site controller action.
-        $field = new \Ip\Form\Field\Hidden(
-            array(
-                'name' => 'sa',
-                'value' => 'FormExample.save', // `FormExample` site controller's `save` action.
-            ));
-        $form->addField($field);
-
-        // Submit button
-        $form->addField(new \Ip\Form\Field\Submit(array('value' => 'Save')));
-
-        return $form;
-    }
 
 }
