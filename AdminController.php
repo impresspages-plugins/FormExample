@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marijus
- * Date: 3/20/14
- * Time: 11:22 AM
- */
-
 namespace Plugin\FormExample;
-
 
 class AdminController extends \Ip\GridController
 {
@@ -16,19 +8,19 @@ class AdminController extends \Ip\GridController
         return array(
             'title' => 'Person list',
             'table' => 'formExample',
-            'deleteWarning' => 'Do you really want to delete this ad?',
-            'sortField' => 'productOrder',
+            'deleteWarning' => 'Do you really want to delete this item?',
+            'sortField' => 'imageOrder',
             'createPosition' => 'top',
             'pageSize' => 25,
             'fields' => array(
                 array(
-                    'label' => 'productName',
-                    'field' => 'productName',
+                    'label' => 'Image name',
+                    'field' => 'imageName',
                     'validators' => array('Required')
                 ),
                 array(
-                    'label' => 'productDescription',
-                    'field' => 'productDescription'
+                    'label' => 'Image description',
+                    'field' => 'imageDescription'
                 ),
                 array(
                     'type' => 'RepositoryFile',
@@ -40,17 +32,6 @@ class AdminController extends \Ip\GridController
                     'label' => 'personName',
                     'field' => 'personName',
                     'validators' => array('Required')
-                ),
-                array(
-                    'label' => 'phone',
-                    'field' => 'phone',
-                    'validators' => array('Required')
-                ),
-                array(
-                    'type' => 'Checkbox',
-                    'label' => 'hidePhone',
-                    'showInList' => true,
-                    'field' => 'hidePhone'
                 ),
                 array(
                     'label' => 'email',

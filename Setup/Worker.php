@@ -1,5 +1,4 @@
 <?php
-
 namespace Plugin\FormExample\Setup;
 
 class Worker extends \Ip\SetupWorker
@@ -13,13 +12,11 @@ class Worker extends \Ip\SetupWorker
         (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `enabled` boolean,
-        `productOrder` double,
-        `productName` varchar(255),
-        `productDescription` text,
+        `imageOrder` double,
+        `imageName` varchar(255),
+        `imageDescription` text,
         `imageFile` varchar(255),
         `personName` varchar(255),
-        `phone` varchar(255) ,
-        `hidePhone` boolean,
         `email` varchar(255),
         `dateSubmitted` datetime,
         PRIMARY KEY (`id`)
@@ -30,7 +27,9 @@ class Worker extends \Ip\SetupWorker
 
     public function deactivate()
     {
+        $sql = 'DROP TABLE IF EXISTS ' . ipTable('formExample');
 
+        ipDb()->execute($sql);
     }
 
     public function remove()
