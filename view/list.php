@@ -1,13 +1,14 @@
 <table>
 <?php
-foreach ($products as $product){
+foreach ($images as $image){
 ?>
     <tr>
         <td><?php
-            echo Plugin\FormExample\Model::showImage($product['imageFile']);
+            echo Plugin\FormExample\Model::showImage($image['imageFile']);
          ?></td>
-        <td><?php echo $product['productName']; ?></td>
-        <td><?php echo ipFormatDateTime(strtotime($product['dateSubmitted']), 'Ip'); ?></td>
+        <td><?php echo $image['imageName']; ?></td>
+        <td><?php echo __(' by ', 'FormExample').esc($image['personName']); ?></td>
+        <td><?php echo ipFormatDateTime(strtotime($image['dateSubmitted']), 'Ip'); ?></td>
     </tr>
 <?php
 }
@@ -17,5 +18,5 @@ foreach ($products as $product){
 
 <form>
     <input type="hidden" name="sa" value="FormExample.showForm"/>
-    <button type="submit">Submit new product</button>
+    <button type="submit"><?php echo __('Submit new image', 'FormExample'); ?></button>
 </form>

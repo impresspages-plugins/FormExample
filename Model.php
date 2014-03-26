@@ -4,18 +4,17 @@ namespace Plugin\FormExample;
 use Ip\Form\Exception;
 
 class Model {
-    public static function getAllProducts() {
+    public static function getAllImages() {
 
-        $products = ipDb()->selectAll('formExample', array('imageFile', 'imageName', 'dateSubmitted'));
+        $images = ipDb()->selectAll('formExample', array('imageFile', 'imageName', 'personName', 'dateSubmitted'));
 
-        return $products;
+        return $images;
     }
 
 
     public static function showImage($value, $recordData = null){
 
         if ($value){
-
             $transform = new \Ip\Transform\ImageFit(100, 50);
             $thumbnailUrl = ipReflection($value, $transform, 'preview.jpg');
             $imageHtml = '<img src="'.$thumbnailUrl.'" alt="'.esc($value).'">';
@@ -27,10 +26,10 @@ class Model {
     }
 
 
-    public static function saveImageRecord($product) {
+    public static function saveImageRecord($image) {
 
-        $imageId = ipDb()->insert('formExample', $product);
-        ipBindFile($product['imageFile'], 'Table_formExample_imageFile', $imageId);
+        $imageId = ipDb()->insert('formExample', $image);
+        ipBindFile($image['imageFile'], 'Table_formExample_imageFile', $imageId);
 
     }
 }

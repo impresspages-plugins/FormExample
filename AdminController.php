@@ -8,38 +8,38 @@ class AdminController extends \Ip\GridController
         return array(
             'title' => 'Person list',
             'table' => 'formExample',
-            'deleteWarning' => 'Do you really want to delete this item?',
+            'deleteWarning' => __('Do you really want to delete this item?', 'FormExample'),
             'sortField' => 'imageOrder',
             'createPosition' => 'top',
             'pageSize' => 25,
             'fields' => array(
                 array(
-                    'label' => 'Image name',
+                    'label' => __('Image name', 'FormExample'),
                     'field' => 'imageName',
                     'validators' => array('Required')
                 ),
                 array(
-                    'label' => 'Image description',
+                    'label' => __('Image description', 'FormExample'),
                     'field' => 'imageDescription'
                 ),
                 array(
                     'type' => 'RepositoryFile',
-                    'label' => 'imageFile',
+                    'label' => __('Image file', 'FormExample'),
                     'field' => 'imageFile',
                     'preview' => 'Plugin\FormExample\Model::showImage'
                 ),
                 array(
-                    'label' => 'personName',
+                    'label' => __('Submitted by', 'FormExample'),
                     'field' => 'personName',
                     'validators' => array('Required')
                 ),
                 array(
-                    'label' => 'email',
+                    'label' => __('E-mail', 'FormExample'),
                     'field' => 'email',
                     'validators' => array('Email')
                 ),
                 array(
-                    'label' => 'dateSubmitted',
+                    'label' => __('Date submitted', 'FormExample'),
                     'field' => 'dateSubmitted',
                     'preview' => true
                 )

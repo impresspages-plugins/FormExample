@@ -4,15 +4,15 @@ namespace Plugin\FormExample;
 class SiteController extends \Ip\Controller
 {
 
-    public function index() // TODO default list
+    public function index()
     {
-        $data['products'] = Model::getAllProducts();
+        $data['images'] = Model::getAllImages();
         $renderedHtml = ipView('view/list.php', $data)->render();
 
         return $renderedHtml;
     }
 
-    public function showForm() // TODO showing form
+    public function showForm()
     {
 
         $form = self::getForm();
@@ -31,26 +31,26 @@ class SiteController extends \Ip\Controller
         $errors = $form->validate($postData);
 
         if ($errors) {
-            $status = array('status' => 'error', 'errors' => $errors); //failure
+            // Validation error
+
+            $status = array('status' => 'error', 'errors' => $errors);
+
             return new \Ip\Response\Json($status);
         } else {
-            //success
+            // Success
+
             $images = \Ip\Form\Field\File::getFiles(ipRequest()->getPost(), 'imageFile');
+            $filenameInRepository = ipRepositoryAddFile($images[0]);
 
-            foreach ($images as $image) {
-                $filenameInRepository = ipRepositoryAddFile($image);
-            }
-
-            $product = array(
-                'productName' => ipRequest()->getPost('productName'),
+            $image = array(
+                'imageName' => ipRequest()->getPost('imageName'),
                 'personName' => ipRequest()->getPost('personName'),
-                'phone' => ipRequest()->getPost('phone'),
                 'email' => ipRequest()->getPost('email'),
                 'imageFile' => $filenameInRepository,
                 'dateSubmitted' => date('Y-m-d H:i')
             );
 
-            Model::saveImageRecord($product, $filenameInRepository);
+            Model::saveImageRecord($image, $filenameInRepository);
 
             $actionUrl = ipActionUrl(array('sa' => 'FormExample.showSuccessMessage'));
             $status = array('redirectUrl' => $actionUrl);
@@ -70,49 +70,31 @@ class SiteController extends \Ip\Controller
 
         $form = new \Ip\Form();
 
-        // Add a product name text field
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'imageName', // HTML "name" attribute
-                'label' => 'Image name', // Field label that will be displayed next to input field
+                'name' => 'imageName', 'label' => __('Image name', 'FormExample'), 'validators' => array('Required'),
             ));
         $form->addField($field);
 
-
-        // Add a product description text area
-        $field = new \Ip\Form\Field\TextArea(
-            array(
-                'name' => 'imageDescription', // HTML "name" attribute
-                'label' => 'Image description', // Field label that will be displayed next to input field
-            ));
-        $form->addField($field);
-
-
-        // Add a person name
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'personName', // HTML "name" attribute
-                'label' => 'Your name', // Field label that will be displayed next to input field
+                'name' => 'personName', 'label' => __('Your name', 'FormExample'), 'validators' => array('Required'),
             ));
         $form->addField($field);
 
-
-        // Add an e-mail field
         $field = new \Ip\Form\Field\Email(
             array(
-                'name' => 'email', // HTML "name" attribute
-                'label' => 'E-mail', // Field label that will be displayed next to input field
+                'name' => 'email', 'label' => __('E-mail', 'FormExample'),
             ));
         $form->addField($field);
 
         // Upload product images
         $field = new \Ip\Form\Field\File(
             array(
-                'name' => 'imageFile', // HTML "name" attribute
-                'label' => 'Your image file:' // Field label that will be displayed next to input field
+                'name' => 'imageFile', 'label' => __('Your image file:', 'FormExample'), 'validators' => array('Required'),
             ));
 
-        $customValidator = new ValidateUpload();
+        $customValidator = new ValidateUpload(); // Validate uploaded file
         $field->addValidator($customValidator); //$customValidator should extend \Ip\Form\Validator  class
 
         $form->addField($field);
@@ -120,11 +102,12 @@ class SiteController extends \Ip\Controller
         // 'sa' means Site controller action.
         $field = new \Ip\Form\Field\Hidden(
             array(
-                'name' => 'sa', // HTML "name" attribute
-                'value' => 'FormExample.save', // Field label that will be displayed next to input field
+                'name' => 'sa',
+                'value' => 'FormExample.save', // `FormExample` site controller's `save` action.
             ));
         $form->addField($field);
 
+        // Submit button
         $form->addField(new \Ip\Form\Field\Submit(array('value' => 'Save')));
 
         return $form;
