@@ -8,7 +8,7 @@ class Model
     public static function getAllImages()
     {
 
-        $images = ipDb()->selectAll('formExample', array('imageFile', 'imageTitle', 'personName', 'dateSubmitted'), 'ORDER BY imageOrder ASC');
+        $images = ipDb()->selectAll('formExample', array('imageFile', 'imageTitle', 'personName', 'dateSubmitted'), array(), 'ORDER BY imageOrder ASC');
 
         return $images;
     }
